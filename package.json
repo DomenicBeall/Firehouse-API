@@ -1,0 +1,23 @@
+{
+  "name": "firehouse-api",
+  "version": "1.0.0",
+  "description": "The server that serves Firehouse",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DomenicBeall/Firehouse-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DomenicBeall/Firehouse-API/issues"
+  },
+  "homepage": "https://github.com/DomenicBeall/Firehouse-API#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
