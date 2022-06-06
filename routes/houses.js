@@ -3,21 +3,24 @@ const express = require('express');
 const db = require('../database');
 const { House } = db.models;
 
-/* Contains all routes for House Endpoint 
-   Supported routes for this endpoint are
+/* Contains all routes for 'house' Endpoint. 
+   Supported routes for this endpoint are as follows,
    - get
     args: id
     returns: 200 (sucess), house object
     route: /house/:id
+
    - post
-    args: body house object
+    args: object (house)
     returns: 201 (created)
     route: /house
+
    - patch
     args: id, object (of attributes to update in body)
     returns: 200 (success)
     route: /house/:id
-   - delete
+   
+    - delete
     args: id
     returns: 200 (success)
     route: house/:id
