@@ -8,10 +8,7 @@ const PORT = 8080;
 
 /* Middleware here */
 
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
 app.use(bodyParser.json())
 
 // Routes here
