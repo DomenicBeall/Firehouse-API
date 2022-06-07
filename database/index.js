@@ -14,7 +14,7 @@ const db = {
 };
 
 /* Add models to the db object Below */
-db.models.House = require('./models/house')(sequelize, Sequelize);
+db.models.House = require('./models/house.js')(sequelize, Sequelize);
 
 // For debug purposes sync is set to rebuild the datebase on every run.
 db.sequelize.sync({force: true})
