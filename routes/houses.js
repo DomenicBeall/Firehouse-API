@@ -6,6 +6,10 @@ const { House } = db.models;
 /* Contains all routes for 'house' Endpoint. 
    Supported routes for this endpoint are as follows,
    - get
+    args: None
+    returns: 200 (success), list of all house objects
+
+   - get
     args: id
     returns: 200 (sucess), house object
     route: /house/:id
@@ -27,6 +31,11 @@ const { House } = db.models;
 */
 
 const router = express.Router();
+
+router.get('/house', async (req, res) => {
+    const data = await House.findAll();
+    res.status(200).json(data);
+});
 
 router.get('/house/:id', async (req, res) => {
     const id = req.params.id;
