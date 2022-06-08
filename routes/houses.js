@@ -33,6 +33,7 @@ const { House } = db.models;
 const router = express.Router();
 
 router.get('/house', async (req, res) => {
+    // TODO - add query parameter
     const data = await House.findAll();
     res.status(200).json(data);
 });
