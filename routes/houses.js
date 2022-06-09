@@ -1,7 +1,7 @@
 const { response } = require('express');
 const express = require('express');
 const db = require('../database');
-const { House } = db.models;
+const { House, User } = db.models;
 
 /* Contains all routes for 'house' Endpoint. 
    Supported routes for this endpoint are as follows,
@@ -34,20 +34,22 @@ const router = express.Router();
 
 router.get('/house', async (req, res) => {
     // TODO - add query parameter
-    const data = await House.findAll();
+    const data = await House.findAll({include: User});
     res.status(200).json(data);
 });
 
 router.get('/house/:id', async (req, res) => {
     const id = req.params.id;
-    const house = await House.findByPk(id);
+    const house = await House.findByPk(id, { include: User});
     res.status(200).json(house);
     
 });
 
 router.post('/house', async (req, res) => {
     const data = req.body;
-    const house = await House.create(data);
+    const house = await House.create(data, {
+        include: [ User ],
+    });
     res.sendStatus(201);
 })
 

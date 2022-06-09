@@ -15,8 +15,14 @@ const db = {
 
 /* Add models to the db object Below */
 db.models.House = require('./models/house')(sequelize, Sequelize);
+db.models.User = require('./models/users')(sequelize, Sequelize);
+
 
 // For debug purposes sync is set to rebuild the datebase on every run.
 db.sequelize.sync({force: true});
+
+// Set up associations
+db.models.House.belongsToMany(db.models.User, { through: 'House_Users' });
+db.models.User.belongsToMany(db.models.House, { through: 'House_Users' });
 
 module.exports = db;
