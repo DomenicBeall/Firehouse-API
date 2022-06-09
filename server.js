@@ -10,7 +10,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // Routes here
+const user = require('./routes/user')
 const houses = require('./routes/houses');
+
+app.use(user)
 app.use(houses);
 
 app.listen(PORT, () => {
