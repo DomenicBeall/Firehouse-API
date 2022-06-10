@@ -3,5 +3,5 @@
 module.exports = {
     dialect: 'sqlite',
     storage: 'firehouse.db',
-    logging: true,
+    logging: false,
 };
