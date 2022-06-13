@@ -2,20 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 
-// Globals here
-const PORT = 8080;
+// Globals
+const PORT = process.env.PORT || 8080;
 
-/* Middleware here */
+// Middleware
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-// Routes here
-const user = require('./routes/user')
-const houses = require('./routes/houses');
-
-app.use(user)
-app.use(houses);
+// Routes
+app.use(require('./routes'))
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`API listening on port ${PORT}`);
 });

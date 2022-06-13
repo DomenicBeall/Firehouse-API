@@ -1,5 +1,6 @@
-const { response } = require('express');
 const express = require('express');
+const housecontroller = require('../controller/houseController');
+const userController = require('../controller/userController');
 const db = require('../database');
 const { House, User } = db.models;
 
@@ -32,41 +33,56 @@ const { House, User } = db.models;
 
 const router = express.Router();
 
-router.get('/house', async (req, res) => {
-    // TODO - add query parameter
-    const data = await House.findAll({include: User});
+// Gets all houses
+router.get('/', async (req, res) => {
+    const data = await housecontroller.getAll();
     res.status(200).json(data);
 });
 
-router.get('/house/:id', async (req, res) => {
+// Gets a house by id
+router.get('/:id', async (req, res) => {
     const id = req.params.id;
-    const house = await House.findByPk(id, { include: User});
+    const house = await housecontroller.getById(id);
     res.status(200).json(house);
-    
 });
 
-router.post('/house', async (req, res) => {
-    const data = req.body;
-    const house = await House.create(data, {
-        include: [ User ],
-    });
-    res.sendStatus(201);
+// Creates a new house
+router.post('/', async (req, res) => {
+    const { creatorId, ...data } = req.body;   
+
+    const house = await housecontroller.create(data);
+    await userController.joinHouse(creatorId, house.dataValues.id);
+
+    res.status(201).json(house);
 })
 
-router.patch('/house/:id', async (req, res) => {
+// Updates a house
+router.patch('/:id', async (req, res) => {
     const id = req.params.id;
     const data = req.body;
-    const house = await House.findByPk(id);
-    await house.update(data);
-    await house.save();
-    res.sendStatus(200);
+    
+    await housecontroller.update(id, data);
+
+    res.status(200).json("Patch successful");
 })
 
-router.delete('/house/:id', async (req, res) => {
+// Deletes a house by id
+router.delete('/:id', async (req, res) => {
     const id = req.params.id;
-    const house = await House.findByPk(id);
-    await house.destroy();
+    
+    await housecontroller.delete(id);
+
     res.sendStatus(200);
-})
+});
+
+// Deletes a user from a house
+router.delete('/:hid/user/:uid/', async (req, res) => {
+    const hid = req.params.hid;
+    const uid = req.params.uid;
+
+    await userController.leaveHouse(uid, hid);
+
+    res.status(200).json("Delete successful!");
+});
 
 module.exports = router;
